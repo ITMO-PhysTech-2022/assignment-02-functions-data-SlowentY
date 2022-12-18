@@ -1,5 +1,7 @@
 # STRINGS
 import re
+
+
 def wordcount(s: str):
     """
     Функция принимает строку s и возвращает словарь, считающий количество
@@ -45,7 +47,8 @@ def caesar_encode(s: str, shift: int):
 
 # Упражнение на функции:
 # определите дешифратор для шифра Цезаря, используя только вызов шифратора
-caesar_decode = lambda s, shift: caesar_encode(s,-shift)
+caesar_decode = lambda s, shift: caesar_encode(s, -shift)
+
 
 # LISTS
 
@@ -56,7 +59,22 @@ def extract_each(array: list, k: int, cyclic: bool = False):
     (если передан cyclic=True, при достижении конца массива выбор элементов
     продолжается с начала, пока не достигнет уже выбранного элемента)
     """
-    ...
+    arrayNew = []
+    indexes = []
+    i = 0
+    if len(array) != 0:
+        if not cyclic:
+            while i < len(array):
+                arrayNew.append(array[i])
+                i = i + k
+        else:
+            while i not in indexes:
+                indexes.append(i)
+                arrayNew.append(array[i])
+                i = i + k
+                while i >= len(array):
+                    i = i - len(array)
+    return arrayNew
 
 
 # SETS
@@ -67,7 +85,31 @@ def compare(s1: set[int], s2: set[int]):
     меньшим считается то множество, в котором лежит наименьший из их не-общих
     элементов
     """
-    ...
+    print(s1)
+    print(s2)
+    if len(s2) == len(s1):
+        if len(s1) != 0:
+            if max(s2) > max(s1):
+                print(True)
+                return True
+            elif max(s2) < max(s1):
+                print(False)
+                return False
+            else:
+                a = set()
+                b = set()
+                a.add(max(s1))
+                b.add(max(s2))
+                return compare(s1.difference(a),s2.difference(b))
+        else:
+            return False
+    elif len(s1) > len(s2):
+        print(False)
+        return False
+    elif len(s1) < len(s2):
+        print(True)
+        return True
+
 
 
 # DICTIONARIES
