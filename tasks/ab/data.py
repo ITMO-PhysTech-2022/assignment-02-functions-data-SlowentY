@@ -1,12 +1,21 @@
 # STRINGS
-
+import re
 def wordcount(s: str):
     """
     Функция принимает строку s и возвращает словарь, считающий количество
     вхождений каждого слова в нее
     (слова стоит рассматривать без учета регистра и без знаков препинания)
     """
-    ...
+    words = re.split("[ ,.!?&^1-9@#$%:;*()+]", s)
+    countwords = dict()
+    for word in words:
+        if word != '':
+            if word.lower() in countwords and word:
+                countwords[word.lower()] = countwords[word.lower()] + 1
+            else:
+                countwords[word.lower()] = 1
+
+    return countwords
 
 
 def caesar_encode(s: str, shift: int):
@@ -14,13 +23,29 @@ def caesar_encode(s: str, shift: int):
     Функция принимает строку s и величину сдвига shift и возвращает результат
     применения шифра Цезаря к строке, со сдвигом на shift влево
     """
-    ...
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    sNew = ""
+    sym = ""
+    for i in range(0, len(s)):
+        if (s[i] == " "):
+            sNew = sNew + " "
+            continue
+        index = alphabet.find(s[i].lower()) - shift
+        while index < 0:
+            index = index + 26
+        while index > 25:
+            index = index - 26
+        if (s[i].isupper()):
+            sym = alphabet[index].upper()
+        else:
+            sym = alphabet[index]
+        sNew = sNew + sym
+    return sNew
 
 
 # Упражнение на функции:
 # определите дешифратор для шифра Цезаря, используя только вызов шифратора
-caesar_decode = lambda s, shift: ...
-
+caesar_decode = lambda s, shift: caesar_encode(s,-shift)
 
 # LISTS
 
