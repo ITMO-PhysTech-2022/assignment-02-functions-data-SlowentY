@@ -1,4 +1,6 @@
 from typing import Any, Callable
+import random
+import string
 
 
 # BASE
@@ -35,15 +37,21 @@ def print_tree(size: int):
         _print_segment(i)
 
 
-
-
 # RECURSION
 
 def generate_json(depth: int):
     """
     Функция генерирует словарь (dict) с уровнем вложенности depth
     """
-    ...
+    json = dict()
+
+    if depth > 1:
+        json = {'ЧИСТ': 'И!', 'ЧИ': 'СТИ!', 'Ч': 'ИСТИ!', 'ЧИСТИ!': generate_json(depth-1)}
+    elif depth == 1:
+        json = {'ЧИСТ': 'И!', 'ЧИ': 'СТИ!', 'ЭТО': 'КЛАССИКА!', 'ЭТО': 'ЗНАТЬ НАДО!'}
+    else:
+        pass
+    return json
 
 
 def wtf():
@@ -62,7 +70,7 @@ def wtf():
         else:
             return 0
 
-    return _worker(...)
+    return _worker(0)
 
 
 # ARGS, KWARGS
@@ -73,7 +81,12 @@ def mex(*args):
     то есть minimal excluded - минимальное целое неотрицательное число,
     отсутствующее среди них
     """
-    ...
+    i = 0
+    while True:
+        if i not in args:
+            return i
+        else:
+            i=i+1
 
 
 def replace_keys(data: dict[str, Any], **kwargs: str):
@@ -93,7 +106,13 @@ def count_calls_until(f: Callable, start, condition: Callable[..., bool]):
     и условие остановки, и возвращает количество последовательных вызовов f от
     значения start, пока результат не начнет удовлетворять условию остановки
     """
-    ...
+    calls = 0
+    x = start
+    while not condition(x):
+        x = f(x)
+        calls += 1
+
+    return calls
 
 
 def bind(f: Callable, **kwargs):
