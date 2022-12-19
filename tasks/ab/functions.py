@@ -8,11 +8,12 @@ def useless_function():
     Эта функция должна ничего не делать и ничего не возвращать
     Зачем она здесь?... Никто не знает :(
     """
-    print('What is happening?...')
-    print('Why is it happening?...')
+
     if True is False:
+        print('What is happening?...')
+        print('Why is it happening?...')
         exit(1)  # beautiful death
-    return UserWarning
+        return UserWarning
 
 
 def print_tree(size: int):
@@ -24,9 +25,16 @@ def print_tree(size: int):
         """
         Функция выводит сегмент елочки размера height
         """
-        ...
+        s = ""
+        for i in range(1, height + 1):
+            s = (size - i) * " "
+            s = s + ("*" * (2 * i - 1))
+            print(s)
 
-    ...
+    for i in range(1, size + 1):
+        _print_segment(i)
+
+
 
 
 # RECURSION
