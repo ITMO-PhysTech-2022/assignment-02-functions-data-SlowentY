@@ -95,7 +95,14 @@ def replace_keys(data: dict[str, Any], **kwargs: str):
     key=value, и возвращает копию этого словаря, в котором каждый ключ key
     переименован в соответствующий ему value
     """
-    ...
+    cd = {}
+    for key in data.keys():
+        if key in kwargs.keys():
+            cd[kwargs[key]] = data[key]
+        else:
+            cd[key] = data[key]
+
+    return cd
 
 
 # HIGH ORDER
