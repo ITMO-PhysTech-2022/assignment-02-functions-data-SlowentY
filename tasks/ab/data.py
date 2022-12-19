@@ -85,30 +85,15 @@ def compare(s1: set[int], s2: set[int]):
     меньшим считается то множество, в котором лежит наименьший из их не-общих
     элементов
     """
-    print(s1)
-    print(s2)
-    if len(s2) == len(s1):
-        if len(s1) != 0:
-            if max(s2) > max(s1):
-                print(True)
-                return True
-            elif max(s2) < max(s1):
-                print(False)
-                return False
-            else:
-                a = set()
-                b = set()
-                a.add(max(s1))
-                b.add(max(s2))
-                return compare(s1.difference(a),s2.difference(b))
-        else:
-            return False
-    elif len(s1) > len(s2):
-        print(False)
-        return False
-    elif len(s1) < len(s2):
-        print(True)
+    sa = s1.difference(s2)
+    sb = s2.difference(s1)
+
+    if len(sa) == 0 and len(sb) != 0:
         return True
+    elif len(sa) == 0:
+        return False
+    else:
+        return min(sa) < min(sb)
 
 
 
