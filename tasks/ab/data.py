@@ -120,7 +120,17 @@ def merge(d1: dict, d2: dict, recursive: bool = False):
     (при наличии одинаковых ключей recursive=False означает, что надо оставить
     значение из d1, а recursive=True - что значения надо объединить рекурсивно)
     """
-    ...
+    if not recursive:
+        return {**d2, **d1}
+    else:
+        universum = d1
+        for key1 in d2:
+            if key1 in d1.keys():
+                if type(d1[key1]) == dict and type(d2[key1]) == dict:
+                    universum[key1] = merge(d1[key1], d2[key1], True)
+        else:
+            return {**d2, **d1}
+        return universum
 
 
 def translate_back(d: dict[str, list[str]]):
@@ -129,4 +139,12 @@ def translate_back(d: dict[str, list[str]]):
     одного языка на другой, и возвращает словарь, описывающий перевод в
     обратном направлении
     """
-    ...
+    dn = dict()
+    for key in d.keys():
+        for item in d[key]:
+            try:
+                ex = len(dn[item])
+            except:
+                dn[item] = []
+            dn[item].append(key)
+    return dn
